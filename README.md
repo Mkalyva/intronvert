@@ -72,16 +72,14 @@ The longest ORF is not guaranteed to use the annotated start codon. Compare it w
 |---|---|
 | `spliced` | an `N` gap matches the intron (± `--tol` bp) |
 | `retained` | one contiguous alignment block covers the intron plus `--min-flank` bp of both flanking exons |
-| `alt_junction` | a junction has one end inside the intron (cryptic splice site, i.e. partial IR) |
-| `left_partial` / `right_partial` | read enters from one exon and ends inside the intron |
+| `left_partial` / `right_partial` | one aligned block runs from an exon into the intron and stops there. A read that splices to a cryptic site inside the intron is also counted here |
 | `internal` | read lies wholly inside the intron |
 | `other` | overlaps the window without informing on the intron (e.g. exon skipping) |
 
 Only `retained` reads count as full-length IR evidence. Partial classes are reported
-(`n_left_partial`, `n_alt_junction`, ...) but not counted as IR, because truncated reads,
+(`n_left_partial`, `n_right_partial`, `n_internal`) but not counted as IR, because truncated reads,
 pre-mRNA and internal poly-A priming look identical. Events with no `retained` read get
-`call = no_full_length_evidence`; check `qc_flags` for `alt_junction_support` or
-`partial_only` to follow those up separately.
+`call = no_full_length_evidence`; check `qc_flags` for `partial_only` to follow those up separately.
 
 ## Features and flags
 

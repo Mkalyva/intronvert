@@ -14,13 +14,12 @@ import pysam
 READ_CLASSES = (
     "spliced",
     "retained",
-    "alt_junction",
     "left_partial",
     "right_partial",
     "internal",
     "other",
 )
-UNSPLICED_CLASSES = ("retained", "alt_junction", "left_partial", "right_partial", "internal")
+UNSPLICED_CLASSES = ("retained", "left_partial", "right_partial", "internal")
 SIMPLE_REPEAT_TAGS = ("simple_repeat", "low_complexity", "satellite")
 
 
@@ -84,10 +83,6 @@ def classify_read(blocks, juncs, s, e, flank, tol):
         return "spliced"
     if any(bs <= s - flank and be >= e + flank for bs, be in blocks):
         return "retained"
-    for js, je in juncs:
-        # a junction with an end inside the intron = cryptic splice site (partial IR)
-        if s + tol < js < e - tol or s + tol < je < e - tol:
-            return "alt_junction"
     touching = [(bs, be) for bs, be in blocks if be > s and bs < e]
     if not touching:
         return "other"

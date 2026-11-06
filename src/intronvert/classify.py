@@ -26,7 +26,6 @@ FEATURES = [
     "frac_retained_both_flank_spliced",
     "frac_retained_any_flank_spliced",
     "partial_fraction",
-    "frac_alt_junction",
     "depth_ratio",
     "intron_depth_cv",
     "frac_intron_covered",
@@ -64,7 +63,6 @@ def derive(df):
     d["log_n_retained"] = np.log1p(d.n_retained)
     d["log_intron_len"] = np.log10(d.intron_len)
     d["partial_fraction"] = (d.n_left_partial + d.n_right_partial + d.n_internal) / nonspliced.replace(0, np.nan)
-    d["frac_alt_junction"] = d.n_alt_junction / (d.n_alt_junction + d.n_retained + d.n_spliced).replace(0, np.nan)
     d["depth_ratio"] = d.depth_ratio.clip(0, 2)
     d["nm_rate_delta"] = d.nm_rate_retained - d.nm_rate_spliced
     d["strand_discordance"] = d.frac_sense_spliced - d.frac_sense_retained
@@ -101,8 +99,6 @@ def flag_events(d):
         f = []
         if r.n_retained == 0:
             f.append("no_full_read_support")
-            if r.n_alt_junction >= 2:
-                f.append("alt_junction_support")
             if r.n_left_partial + r.n_right_partial + r.n_internal >= 2:
                 f.append("partial_only")
         elif r.n_retained < 3:
