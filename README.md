@@ -1,7 +1,7 @@
-# irtriage
+# intronvert
 
 Triage intron-retention (IR) events called from long-read RNA-seq. Given a table of IR
-coordinates, `irtriage` goes back to the BAM with pysam, classifies every read at each
+coordinates, `intronvert` goes back to the BAM with pysam, classifies every read at each
 intron, adds repeat and internal-priming context, and scores each event as
 `real_IR`, `artifact` or `uncertain`.
 
@@ -27,19 +27,19 @@ zcat rmsk.txt.gz | awk -v OFS='\t' '{print $6,$7,$8,$12"|"$13"|"$11}' > rmsk.bed
 ## Usage
 
 ```bash
-irtriage run --bam sample.bam --table ir_events.tsv --fasta genome.fa \
+intronvert run --bam sample.bam --table ir_events.tsv --fasta genome.fa \
     --repeats rmsk.bed --reads-out reads.tsv -o ir_scored.tsv
 
 # or in two steps (re-score without re-reading the BAM)
-irtriage extract --bam sample.bam --table ir_events.tsv --fasta genome.fa -o evidence.tsv
-irtriage score   --events evidence.tsv [--labels validated.tsv] -o ir_scored.tsv
+intronvert extract --bam sample.bam --table ir_events.tsv --fasta genome.fa -o evidence.tsv
+intronvert score   --events evidence.tsv [--labels validated.tsv] -o ir_scored.tsv
 ```
 
 ## ORF step: retained-intron protein for AlphaFold
 
 ```bash
 pip install -e ".[orf]"      # orfipy (needs a C compiler) + biopython
-irtriage orf --scored ir_scored.tsv --gtf annotation.gtf --fasta genome.fa \
+intronvert orf --scored ir_scored.tsv --gtf annotation.gtf --fasta genome.fa \
     --calls real_IR --outdir orf_out
 ```
 

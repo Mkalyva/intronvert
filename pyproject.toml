@@ -3,7 +3,7 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "irtriage"
+name = "intronvert"
 version = "0.1.0"
 description = "Triage intron-retention events from long-read RNA-seq BAMs: per-read evidence, repeat context and a real-vs-artifact score"
 readme = "README.md"
@@ -16,7 +16,7 @@ orf = ["orfipy", "biopython"]
 test = ["pytest", "orfipy", "biopython"]
 
 [project.scripts]
-irtriage = "irtriage.cli:main"
+intronvert = "intronvert.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

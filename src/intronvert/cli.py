@@ -40,7 +40,7 @@ def _write_scored(events, labels_path, out):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="irtriage", description=__doc__)
+    ap = argparse.ArgumentParser(prog="intronvert", description=__doc__)
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("extract", help="BAM + IR table -> per-event read evidence")
@@ -58,7 +58,7 @@ def main(argv=None):
     p.add_argument("-o", "--out", required=True)
 
     p = sub.add_parser("orf", help="scored events -> longest ORF per retained-intron transcript (orfipy + Biopython)")
-    p.add_argument("--scored", required=True, help="output of `irtriage score`/`run` (0-based start/end)")
+    p.add_argument("--scored", required=True, help="output of `intronvert score`/`run` (0-based start/end)")
     p.add_argument("--gtf", required=True, help="GTF containing the exons of the transcripts in the table")
     p.add_argument("--fasta", required=True, help="indexed genome FASTA")
     p.add_argument("--calls", default="real_IR", help="comma-separated calls to process (default: real_IR)")

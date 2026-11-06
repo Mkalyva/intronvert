@@ -160,7 +160,7 @@ def _crossfit(X, y, make_model, seed=0):
 
 
 def score_events(events, labels=None, min_per_class=5):
-    """Score an event table from ``irtriage.features.extract``.
+    """Score an event table from ``intronvert.features.extract``.
 
     ``labels``: optional DataFrame with ``event_id`` and ``label`` (real/artifact or 1/0).
     Returns (scored table, info dict).

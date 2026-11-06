@@ -6,8 +6,8 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent))
 import synthetic  # noqa: E402
 
-from irtriage import extract, score_events  # noqa: E402
-from irtriage.features import RepeatIndex, classify_read  # noqa: E402
+from intronvert import extract, score_events  # noqa: E402
+from intronvert.features import RepeatIndex, classify_read  # noqa: E402
 
 S, E, F, T = 1000, 2000, 20, 5
 
@@ -30,7 +30,7 @@ def test_classify_read(blocks, juncs, expected):
 
 @pytest.fixture(scope="module")
 def data(tmp_path_factory):
-    d = tmp_path_factory.mktemp("irtriage")
+    d = tmp_path_factory.mktemp("intronvert")
     return synthetic.build(d), d
 
 

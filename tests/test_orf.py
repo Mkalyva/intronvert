@@ -3,7 +3,7 @@ import pysam
 import pytest
 
 pytest.importorskip("Bio")
-from irtriage.orf import find_orfipy, run_orf_step  # noqa: E402
+from intronvert.orf import find_orfipy, run_orf_step  # noqa: E402
 
 try:
     find_orfipy()

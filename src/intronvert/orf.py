@@ -104,7 +104,7 @@ def find_orfipy():
         return str(exe)
     found = shutil.which("orfipy")
     if not found:
-        raise RuntimeError("orfipy not found; install with: pip install 'irtriage[orf]'")
+        raise RuntimeError("orfipy not found; install with: pip install 'intronvert[orf]'")
     return found
 
 
