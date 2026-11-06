@@ -94,24 +94,6 @@ on A-rich genome (internal priming), and RepeatMasker overlap (`repeat_frac`,
 `discontinuous_intron_coverage`, `retained_reads_unspliced_context`,
 `internal_priming_like`, `strand_discordant`, `simple_repeat_intron`.
 
-## The scoring model
-
-* **Rule score** (always computed): weighted mean of interpretable evidence components
-  (read support, continuity, uniformity, flank splicing, priming, strand, repeats, MAPQ).
-* **Default mode (weak supervision)**: confident rule-based pseudo-labels train a
-  cross-fitted logistic regression; `ai_score = 0.5 * rule + 0.5 * model`. With fewer
-  than 5 pseudo-labelled events per class it falls back to the rule score alone.
-* **Supervised mode** (`--labels`, columns `event_id,label` with `real`/`artifact`):
-  a random forest on your own validated calls; cross-validated AUC is printed.
-
-Cut-offs: `real_IR` ≥ 0.7, `artifact` ≤ 0.4, otherwise `uncertain`.
-
-**Limitations.** The weak-supervision model learns from labels derived from the same
-features, so it smooths the rule score rather than adding independent evidence. Treat
-it as a prioritisation aid. Weights and cut-offs are heuristics that have only been
-tested on synthetic data. Validate on events you can confirm (RT-PCR, short-read IR
-tools, matched direct-RNA vs cDNA) and use `--labels` once you have them.
-
 ## Tests
 
 ```bash
